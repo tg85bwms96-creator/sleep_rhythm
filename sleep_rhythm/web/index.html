@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#242047"><meta name="color-scheme" content="light dark">
+  <meta name="description" content="자기 전 버튼 하나로 수면을 기록하고, 내일 집중할 교시에 맞춰 오늘 밤 취침 시각을 계산하는 교육용 수면 앱">
+  <meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="리듬">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/icon-192.png">
+  <link rel="manifest" href="/manifest.webmanifest"><link rel="stylesheet" href="/style.css">
+  <title>리듬 · 수면 기록과 취침 시각 계산</title><script src="/app.js" type="module"></script>
+</head>
+<body>
+<div id="app">
+  <header class="appbar">
+    <div class="brand"><img src="/icon.svg" alt="" width="28" height="28"><span>리듬</span></div>
+    <p id="today-date" class="appbar-date"></p>
+    <button id="exit-demo" class="demo-pill" type="button" hidden>예시 보는 중 · 끝내기</button>
+    <button id="help-button" class="round-button" type="button" aria-label="사용법과 어려운 말 풀이 보기">?</button>
+  </header>
+  <div id="inapp-banner" class="banner warn" hidden><span>카카오톡 같은 앱 안의 브라우저로 열렸어요. 여기 기록은 Chrome·Safari와 따로 저장되고 홈 화면 설치가 안 될 수 있어요. 메뉴의 ‘다른 브라우저로 열기’를 권해요.</span><button id="inapp-close" class="banner-button" type="button">닫기</button></div>
+  <div id="storage-banner" class="banner warn" hidden><span>이 브라우저에는 기록이 저장되지 않아요(사생활 보호 모드 등). 설정에서 백업 파일을 저장해 두세요.</span></div>
+
+  <main id="content">
+    <section id="tab-home" class="tab-panel home" aria-label="홈">
+      <section id="calc-card" class="calc-card" aria-labelledby="calc-label">
+        <div class="calc-head"><p id="calc-label" class="calc-label">오늘 밤 권장 취침</p><button id="calc-detail" class="calc-link" type="button" hidden>계산 근거 ›</button></div>
+        <div id="calc-state" class="calc-state" aria-live="polite"><p id="calc-main" class="calc-main idle">몇 시에 자면 좋을까요?</p><p id="calc-sub" class="calc-sub"></p></div>
+        <button id="calc-button" class="calc-button" type="button">최근 기록으로 취침 시각 계산하기</button>
+      </section>
+
+      <section class="card status-card" aria-labelledby="status-title">
+        <div class="card-head"><h2 id="status-title">나의 기록 상태</h2><span id="status-badge" class="tag">준비 중</span><button id="status-demo" class="tag-button" type="button" hidden>예시로 둘러보기</button></div>
+        <dl class="stats3">
+          <div><dt>연속 기록</dt><dd id="stat-days">0일</dd></div>
+          <div><dt>최근 평균</dt><dd id="stat-avg">—</dd></div>
+          <div><dt>지난 수면</dt><dd id="stat-last">—</dd></div>
+        </dl>
+        <p id="status-note" class="status-note" hidden></p>
+      </section>
+
+      <section class="card focus-card" aria-labelledby="focus-title">
+        <div class="card-head"><h2 id="focus-title">내일 언제 집중할까요?</h2><span id="focus-meta" class="card-meta"></span></div>
+        <div id="period-chips" class="chips" role="group" aria-labelledby="focus-title"></div>
+      </section>
+
+      <section class="tonight" aria-label="오늘 밤">
+        <button id="sleep-button" class="sleep-button" type="button"><svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg><span><b>잠자러 가기</b><small>누르면 수면 기록을 시작해요</small></span></button>
+        <div class="wake-row"><label for="wake-time"><b>꼭 일어나야 하는 시각</b><small id="wake-day"></small></label><input id="wake-time" type="time" value="07:00" required></div>
+      </section>
+    </section>
+
+    <section id="tab-records" class="tab-panel" hidden aria-labelledby="records-title">
+      <div class="tab-head"><h1 id="records-title">수면 기록</h1><button id="add-record" class="pill-button" type="button">＋ 직접 추가</button></div>
+      <p class="tab-note">버튼을 깜빡했다면 직접 추가하세요. 일어난 날 기준으로 하루에 밤잠(주수면) 하나를 기록해요.</p>
+      <ul id="record-list" class="record-list"></ul>
+      <button id="more-records" class="more-button" type="button" hidden>이전 기록 더 보기</button>
+    </section>
+
+    <section id="tab-analysis" class="tab-panel" hidden aria-labelledby="analysis-title">
+      <div class="tab-head"><h1 id="analysis-title">수면 분석</h1><button id="analysis-refresh" class="pill-button ghost" type="button">새로 분석</button></div>
+      <p id="analysis-range" class="tab-note">기록을 바탕으로 수면시간·규칙성·필요 수면을 살펴보고 풀어서 설명해요.</p>
+      <div id="analysis-tiles" class="tiles" aria-live="polite"></div>
+      <section class="card" aria-labelledby="comments-title"><h2 id="comments-title">해설</h2><ul id="analysis-comments" class="comments"></ul></section>
+      <section class="card" aria-labelledby="timeline-title"><h2 id="timeline-title">최근 14일 수면</h2><div id="timeline" class="timeline"></div><p class="legend-row"><span class="key main">밤잠</span><span class="key short">최소 미만</span><span class="key nap">낮잠</span></p></section>
+      <section class="card" aria-labelledby="obs-title">
+        <h2 id="obs-title">지금 얼마나 졸린가요?</h2>
+        <p class="card-note">수업 중 비슷한 시각에 한 번씩 눌러 두면 탐구용 모델 비교에 쓰여요.</p>
+        <div id="obs-buttons" class="kss-row" role="group" aria-labelledby="obs-title"></div>
+        <p id="obs-last" class="obs-last" aria-live="polite"></p>
+        <details class="fold"><summary>탐구용: 모델 A·B·C 비교</summary><div id="research-results" class="research-results"></div><div id="observations-list"></div><button id="export-research" class="pill-button ghost" type="button" aria-disabled="true">비교 결과 CSV</button></details>
+      </section>
+      <details class="card fold"><summary>잠을 돕는 생활 습관</summary>
+        <ul class="habit-list"><li>매일 같은 시각에 자고 일어나기</li><li>침실은 조용하고 편안하며 서늘하게</li><li>잠자리에 들기 최소 30분 전에 전자기기 끄기</li><li>잠자리에 들기 전 과식·음주 피하기</li><li>오후·저녁에는 카페인 피하기</li><li>규칙적으로 운동하고 건강한 식사 유지하기</li></ul>
+      </details>
+      <p id="analysis-disclaimer" class="footnote"></p>
+    </section>
+
+    <section id="tab-basis" class="tab-panel" hidden aria-labelledby="basis-title">
+      <div class="tab-head"><h1 id="basis-title">계산 근거</h1></div>
+      <section id="basis-result" class="card" aria-live="polite"></section>
+      <details class="card fold"><summary>어떻게 계산하나요?</summary>
+        <ol class="method-list">
+          <li><b>수면압 S</b> 깨어 있으면 조금씩 쌓이고 자면 줄어들어요. 15분마다 일정한 비율로 바뀌는 지수식으로 계산해요(시간상수 깨어 있을 때 18.2시간, 잘 때 4.2시간).</li>
+          <li><b>일주기 기준 C</b> 하루 24시간 주기로 오르내리는 곡선이에요. 가장 낮은 시각은 최근 기록의 평균 수면 중간 시각과 평균 기상 시각의 가운데에 둬요.</li>
+          <li><b>각성 지표 AL = C − S</b> 0 이상이면 모형상 깨어 있기 괜찮은 상태, 0보다 작으면 ‘잠이 필요한데 깨어 있는’ 상태예요.</li>
+          <li><b>후보 비교</b> 꼭 일어나야 하는 시각을 기준으로 15분 간격의 취침 후보를 만들고, 후보마다 ① 연령별 최소 수면시간 ② 고른 교시 내내 AL ≥ 0(5분 간격 확인)을 따져요. ③ 필요 수면이 기상 전에 끝나는지도 함께 보여 줘요.</li>
+          <li><b>고르는 규칙</b> 조건을 만족하면서 평소 취침 시각(최근 평균)을 가장 적게 바꾸는 시각을 골라 그 앞 30분을 권장 구간으로 보여 줘요. 모형 조건 때문에 하룻밤에 60분보다 많이 앞당기라고 하지는 않아요(연령별 최소 수면시간을 채우는 데 필요하면 그만큼은 앞당겨요). 평소 수면이 권장 범위보다 길어도 줄이라고 하지 않아요.</li>
+          <li><b>준비 기간</b> 처음 4일은 모형이 기록에 맞춰지는 기간이라, 연속 5일째부터 계산해요. 10~14일 기록을 권해요.</li>
+        </ol>
+      </details>
+      <details class="card fold"><summary>어려운 말 풀이</summary><dl id="basis-glossary" class="glossary"></dl></details>
+      <details class="card fold"><summary>분석 탭은 어떻게 계산하나요?</summary>
+        <ul class="method-list plain">
+          <li>마지막 기록 날을 기준으로 최근 14일(일어난 날 기준)을 보고, 날마다 가장 긴 밤잠 하나를 써요. 낮잠은 따로 세요.</li>
+          <li>‘±분’은 잠든·일어난 시각이 평균에서 보통 얼마나 달라지는지(시계 위 표준편차)예요. ±30분 이내면 ‘일정’, ±60분을 넘으면 ‘들쭉날쭉’으로 표시해요(앱 기준).</li>
+          <li>주말 리듬은 토·일 아침에 일어난 날과 평일의 수면 중간 시각 차이예요. 1시간 미만이면 ‘비슷’, 2시간 이상이면 ‘차이 큼’으로 표시해요(앱 기준).</li>
+          <li>필요 수면은 준비 기간(4일)이 지난 밤마다 그 전 기록만으로 계산해, 일어나기 전에 끝났는지 세요. 연구의 CSS(일주기 수면 충족도) 개념을 단순화한 앱 계산이에요.</li>
+        </ul>
+      </details>
+      <details class="card fold"><summary>한계와 주의</summary>
+        <p class="fold-text">수면 연구에서 쓰는 개념을 참고해 새로 만든 단순한 교육용 모형이에요. 연구에서 보고한 정확도가 이 앱에 그대로 적용되지 않아요. 실제 생체시계 측정·의료 진단·운전 같은 안전 판단에 쓰지 마세요. 수면의 질, 밤중에 깬 시간, 빛, 카페인, 약, 질환은 계산하지 않아요. 권장 시각에 바로 잠든다고 가정하므로, 평소보다 많이 이른 시각은 실제로 잠들기 어려울 수 있어요. 마감과 범위는 통계적 신뢰구간이 아니에요. 충분히 자도 낮 졸림이 계속되면 의료 전문가와 상담하세요.</p>
+        <p class="fold-text">앱 화면이 보이면 일어난 시각을 물어보는 기능은 앱을 켜 둔 채 화면을 끈 경우에만 동작해요. 웹앱은 다른 앱을 쓰는 중이나 앱이 닫혀 있을 때 휴대폰 잠금 해제를 알 수 없어서, 그럴 때는 앱을 열고 ‘일어났어요’를 눌러 주세요.</p>
+      </details>
+    </section>
+
+    <section id="tab-settings" class="tab-panel" hidden aria-labelledby="settings-title">
+      <div class="tab-head"><h1 id="settings-title">설정</h1></div>
+      <section class="card" aria-labelledby="profile-title">
+        <h2 id="profile-title">나에 대해</h2>
+        <div class="field"><label for="age-group">연령대 (만 나이)</label><select id="age-group"><option value="newborn">만 0–3개월</option><option value="infant">만 4–11개월</option><option value="toddler">만 1–2세</option><option value="preschool">만 3–5세</option><option value="school">만 6–12세</option><option value="teen">만 13–17세</option><option value="adult">만 18–60세</option><option value="older">만 61–64세</option><option value="senior">만 65세 이상</option></select></div>
+        <p id="age-guidance" class="card-note"></p>
+        <div class="field"><label for="schedule">생활 유형</label><select id="schedule"><option value="day">주로 밤에 자고 낮에 활동</option><option value="shift">교대근무·낮 수면 (기록만)</option></select></div>
+        <div class="field"><label for="timezone">시간대</label><input id="timezone" list="timezones" value="Asia/Seoul" maxlength="80" required autocomplete="off" spellcheck="false"><datalist id="timezones"><option value="Asia/Seoul"><option value="Asia/Tokyo"><option value="America/New_York"><option value="America/Los_Angeles"><option value="Europe/London"><option value="UTC"></datalist></div>
+        <div id="profile-error" class="form-error" role="alert" hidden></div>
+        <p id="profile-dirty" class="dirty-note" role="status" hidden>바뀐 내용이 있어요. ‘설정 저장’을 눌러야 적용돼요.</p>
+        <button id="save-profile" class="block-button" type="button">설정 저장</button>
+      </section>
+      <details class="card fold"><summary>학교 시간표 (교시 시각)</summary>
+        <p class="card-note">홈의 ‘내일 언제 집중할까요?’에서 고른 교시를 이 시각으로 계산해요. 우리 학교 시간표에 맞게 바꿔 주세요. 8·9교시가 있으면 ‘교시 추가하기’를 누르세요.</p>
+        <div id="timetable-rows" class="timetable"></div>
+        <div class="period-tools"><button id="add-period" class="block-button ghost" type="button">＋ 8교시 추가하기</button><button id="remove-period" class="block-button ghost" type="button" hidden>− 8교시 빼기</button></div>
+        <p id="period-limit" class="card-note" hidden>9교시까지 추가할 수 있어요.</p>
+        <div id="timetable-error" class="form-error" role="alert" hidden></div>
+        <p id="timetable-dirty" class="dirty-note" role="status" hidden>바뀐 내용이 있어요. ‘시간표 저장’을 눌러야 적용돼요.</p>
+        <div class="button-row"><button id="save-timetable" class="block-button" type="button">시간표 저장</button><button id="reset-timetable" class="block-button ghost" type="button">기본값으로</button></div>
+      </details>
+      <section class="card" aria-labelledby="data-title">
+        <h2 id="data-title">기록 관리</h2>
+        <p class="card-note">기록은 이 휴대폰(브라우저)에만 저장돼요. 계산·분석할 때만 서버로 보내고, 서버는 저장하지 않아요. 휴대폰을 바꾸거나 브라우저 데이터를 지우기 전에 백업 파일을 저장하세요.</p>
+        <div class="button-grid"><button id="export-json" class="block-button" type="button">백업 파일 저장</button><button id="import-button" class="block-button ghost" type="button">백업 불러오기</button><button id="export-csv" class="block-button ghost" type="button">기록 CSV 저장</button><button id="export-rescue" class="block-button ghost" type="button" hidden>읽지 못한 원본 저장</button></div>
+        <input id="import-file" type="file" accept="application/json,.json" hidden>
+        <button id="clear-data" class="text-danger" type="button">이 기기의 기록 모두 지우기</button>
+      </section>
+      <section class="card" aria-labelledby="help-title">
+        <h2 id="help-title">둘러보기와 도움말</h2>
+        <div class="button-grid"><button id="demo-button" class="block-button ghost" type="button">14일 예시로 둘러보기</button><button id="show-intro" class="block-button ghost" type="button">사용법·용어 풀이 다시 보기</button><button id="install-button" class="block-button" type="button" hidden>홈 화면에 앱 설치</button></div>
+        <p class="card-note"><b>iPhone</b> Safari 공유 버튼 → 홈 화면에 추가 · <b>Android</b> Chrome 메뉴 → 앱 설치. 카카오톡 등 앱 안에서 열었다면 먼저 ‘다른 브라우저로 열기’를 눌러 주세요. 알람·푸시 알림 기능은 없어요.</p>
+      </section>
+      <p class="footnote">리듬 v2.2 · 교육·자기관리용 · 의료 진단이 아니에요</p>
+    </section>
+  </main>
+
+  <nav class="tabbar" aria-label="주 메뉴">
+    <button class="tab" type="button" data-tab="home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11 12 4l8.5 7M6 9.5V20h4.5v-5.5h3V20H18V9.5"/></svg><span>홈</span></button>
+    <button class="tab" type="button" data-tab="records"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01"/></svg><span>기록</span></button>
+    <button class="tab" type="button" data-tab="analysis"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 19v-6M12 19V6M18 19v-9M3.5 19.5h17"/></svg><span>분석</span></button>
+    <button class="tab" type="button" data-tab="basis"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h10.5L19 8v11.5H5zM15 4.5V8.5h4M8.5 12h7M8.5 15.5h5"/></svg><span>계산 근거</span></button>
+    <button class="tab" type="button" data-tab="settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg><span>설정</span></button>
+  </nav>
+</div>
+
+<div id="sleep-screen" class="sleep-screen" role="dialog" aria-modal="true" aria-labelledby="sleep-title" hidden>
+  <div class="sleep-inner">
+    <svg class="sleep-moon" viewBox="0 0 24 24" width="56" height="56" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>
+    <h2 id="sleep-title">수면 기록 중</h2>
+    <p id="sleep-since" class="sleep-since"></p>
+    <p id="sleep-plan" class="sleep-plan"></p>
+    <button id="wake-button" class="wake-button" type="button">일어났어요</button>
+    <button id="sleep-cancel" class="sleep-cancel" type="button">잘못 눌렀어요 (기록 취소)</button>
+    <p class="sleep-tip">화면을 끄고 주무세요. 아침에 잠금을 풀었을 때 이 화면이 보이면 일어난 시각을 먼저 물어봐요.</p>
+  </div>
+</div>
+
+<dialog id="intro-dialog" class="intro" aria-labelledby="intro-title">
+  <div class="intro-scroll">
+    <div class="intro-hero">
+      <svg class="intro-moon" viewBox="0 0 24 24" width="44" height="44" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>
+      <h2 id="intro-title">좋은 수면의 시작은<br>작은 기록 하나.</h2>
+      <p>리듬은 내 수면 기록으로 오늘 밤 몇 시에 자면 좋을지 계산해 주는 교육용 앱이에요.</p>
+    </div>
+    <h3>이렇게 써요</h3>
+    <ol class="intro-steps">
+      <li>자기 전에 <b>잠자러 가기</b>를 누르고 화면을 꺼요.</li>
+      <li>일어나면 <b>일어났어요</b>를 눌러요. 앱을 켜 둔 채 잤다면 잠금을 풀 때 앱이 먼저 물어봐요.</li>
+      <li>5일 이상 모이면 집중할 교시를 고르고 <b>취침 시각 계산하기</b>를 눌러요.</li>
+      <li>교시 시각이 다르면 <b>설정 → 학교 시간표</b>에서 고쳐요. 8·9교시가 있으면 <b>교시 추가하기</b>를 눌러요.</li>
+    </ol>
+    <h3>어려운 말 풀이</h3>
+    <dl id="intro-glossary" class="glossary compact"></dl>
+    <p class="intro-note">의료 진단이 아니에요. 기록은 이 휴대폰에만 저장되고 계산·분석할 때만 서버로 보내요(서버는 저장하지 않아요). 연령대 기본값은 만 13–17세예요.</p>
+  </div>
+  <div class="intro-actions"><button id="intro-hide" class="block-button ghost" type="button">이 창 재접속까지 보지 않기</button><button id="intro-close" class="block-button" type="button">닫기</button></div>
+</dialog>
+
+<dialog id="sheet" class="sheet" aria-labelledby="sheet-title">
+  <form id="sheet-form" novalidate>
+    <div class="sheet-head"><h2 id="sheet-title">수면 기록</h2><button id="sheet-x" class="round-button" type="button" aria-label="닫기">×</button></div>
+    <p id="sheet-note" class="sheet-note" hidden></p>
+    <div id="sheet-day-row" class="field"><label for="sheet-day">일어난 날</label><input id="sheet-day" type="date" required></div>
+    <div class="time-pair">
+      <div class="field"><label for="sheet-start">잠든 시각</label><input id="sheet-start" type="time" required></div>
+      <div class="field"><label for="sheet-end">일어난 시각</label><input id="sheet-end" type="time" required></div>
+    </div>
+    <div id="latency-row" class="latency"><span id="latency-label" class="mini-label">잠들기까지 걸린 시간</span><div id="latency-chips" class="mini-chips" role="group" aria-labelledby="latency-label"></div></div>
+    <div class="kind-row" role="group" aria-label="수면 종류"><button type="button" class="seg" data-kind="main" aria-pressed="true">밤잠(주수면)</button><button type="button" class="seg" data-kind="nap" aria-pressed="false">낮잠</button></div>
+    <div class="kss-block"><span id="kss-label" class="mini-label">깬 직후 졸림 <small>선택</small></span><div id="sheet-kss" class="kss-row small" role="group" aria-labelledby="kss-label"></div></div>
+    <p id="sheet-summary" class="sheet-summary" aria-live="polite"></p>
+    <div id="sheet-error" class="form-error" role="alert" hidden></div>
+    <button id="sheet-save" class="block-button" type="submit">기록 저장</button>
+    <div class="sheet-more"><button id="sheet-still" class="text-link" type="button" hidden>아직 자는 중이에요</button><button id="sheet-discard" class="text-link danger" type="button" hidden>이번 측정 취소</button><button id="sheet-delete" class="text-link danger" type="button" hidden>이 기록 삭제</button></div>
+  </form>
+</dialog>
+
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<noscript><p class="banner warn">이 앱은 JavaScript가 필요해요. 브라우저 설정에서 허용한 뒤 다시 열어 주세요.</p></noscript>
+</body>
+</html>

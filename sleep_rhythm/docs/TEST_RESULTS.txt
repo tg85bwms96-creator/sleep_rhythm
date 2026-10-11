@@ -1,0 +1,568 @@
+리듬 v2.2 테스트 실행 기록 (2026-10-11, 이 개발 컨테이너)
+
+== 1. Python 단위 테스트: 5개 버전 ==
+$ Python 3.11.17 -m unittest discover -s tests
+Ran 150 tests in 2.704s
+
+OK
+$ Python 3.12.3 -m unittest discover -s tests
+Ran 150 tests in 2.990s
+
+OK
+$ Python 3.13.16 -m unittest discover -s tests
+Ran 150 tests in 3.172s
+
+OK
+$ Python 3.14.6 -m unittest discover -s tests
+Ran 150 tests in 2.655s
+
+OK
+$ Python 3.15.0b4 -m unittest discover -s tests
+Ran 150 tests in 2.570s
+
+OK
+
+== 2. Python 테스트 목록 (Python 3.13, -v) ==
+test_comments_carry_no_citations (test_analysis.AnalysisTests.test_comments_carry_no_citations) ... ok
+test_duplicate_main_uses_longest (test_analysis.AnalysisTests.test_duplicate_main_uses_longest) ... ok
+test_empty_and_insufficient (test_analysis.AnalysisTests.test_empty_and_insufficient) ... ok
+test_helpers (test_analysis.AnalysisTests.test_helpers) ... ok
+test_invalid_input_is_input_error (test_analysis.AnalysisTests.test_invalid_input_is_input_error) ... ok
+test_irregular_timing_is_warned (test_analysis.AnalysisTests.test_irregular_timing_is_warned) ... ok
+test_necessary_uses_only_earlier_records (test_analysis.AnalysisTests.test_necessary_uses_only_earlier_records) ... ok
+test_random_inputs_are_safe (test_analysis.AnalysisTests.test_random_inputs_are_safe) ... ok
+test_sample_statistics (test_analysis.AnalysisTests.test_sample_statistics) ... ok
+test_short_night_fails_necessary_sleep (test_analysis.AnalysisTests.test_short_night_fails_necessary_sleep) ... ok
+test_sleepiness_groups (test_analysis.AnalysisTests.test_sleepiness_groups) ... ok
+test_small_necessary_gaps_are_tolerated (test_analysis.AnalysisTests.test_small_necessary_gaps_are_tolerated) ... ok
+test_stale_and_naps (test_analysis.AnalysisTests.test_stale_and_naps) ... ok
+test_stale_notice_follows_the_last_main_sleep (test_analysis.AnalysisTests.test_stale_notice_follows_the_last_main_sleep) ... ok
+test_tracking_only_groups_count_naps (test_analysis.AnalysisTests.test_tracking_only_groups_count_naps) ... ok
+test_warmup_nights_are_not_judged (test_analysis.AnalysisTests.test_warmup_nights_are_not_judged) ... ok
+test_weekend_shift_is_reported (test_analysis.AnalysisTests.test_weekend_shift_is_reported) ... ok
+test_advance_to_deadline_window (test_model.DecisionRuleTests.test_advance_to_deadline_window) ... ok
+test_deadlines_only_from_rows_within_limits (test_model.DecisionRuleTests.test_deadlines_only_from_rows_within_limits) ... ok
+test_delay_when_plan_is_before_range (test_model.DecisionRuleTests.test_delay_when_plan_is_before_range) ... ok
+test_earliest_without_anchor (test_model.DecisionRuleTests.test_earliest_without_anchor) ... ok
+test_keep_acceptable_plan (test_model.DecisionRuleTests.test_keep_acceptable_plan) ... ok
+test_keep_plan_longer_than_search_maximum (test_model.DecisionRuleTests.test_keep_plan_longer_than_search_maximum) ... ok
+test_large_model_shift_is_capped (test_model.DecisionRuleTests.test_large_model_shift_is_capped) ... ok
+test_model_condition_beyond_one_hour_is_capped (test_model.DecisionRuleTests.test_model_condition_beyond_one_hour_is_capped) ... ok
+test_model_condition_within_one_hour_is_ready (test_model.DecisionRuleTests.test_model_condition_within_one_hour_is_ready) ... ok
+test_no_candidate_meets_minimum (test_model.DecisionRuleTests.test_no_candidate_meets_minimum) ... ok
+test_unattainable_target_keeps_hard_constraints (test_model.DecisionRuleTests.test_unattainable_target_keeps_hard_constraints) ... ok
+test_calibration_puts_reference_sleeper_in_balance (test_model.PhysiologyTests.test_calibration_puts_reference_sleeper_in_balance) ... ok
+test_fifteen_minute_steps_equal_exact_update (test_model.PhysiologyTests.test_fifteen_minute_steps_equal_exact_update) ... ok
+test_later_bed_never_ends_necessary_sleep_earlier (test_model.PhysiologyTests.test_later_bed_never_ends_necessary_sleep_earlier) ... ok
+test_model_variants (test_model.PhysiologyTests.test_model_variants) ... ok
+test_nap_reduces_pressure (test_model.PhysiologyTests.test_nap_reduces_pressure) ... ok
+test_necessary_sleep_can_be_zero (test_model.PhysiologyTests.test_necessary_sleep_can_be_zero) ... ok
+test_non_grid_episode_exact (test_model.PhysiologyTests.test_non_grid_episode_exact) ... ok
+test_pressure_monotone_and_bounded (test_model.PhysiologyTests.test_pressure_monotone_and_bounded) ... ok
+test_pressure_series_matches_pointwise (test_model.PhysiologyTests.test_pressure_series_matches_pointwise) ... ok
+test_scenario_uses_exact_pressure (test_model.PhysiologyTests.test_scenario_uses_exact_pressure) ... ok
+test_semigroup_exact (test_model.PhysiologyTests.test_semigroup_exact) ... ok
+test_target_scan_mean_and_endpoints (test_model.PhysiologyTests.test_target_scan_mean_and_endpoints) ... ok
+test_threshold_trough_and_period (test_model.PhysiologyTests.test_threshold_trough_and_period) ... ok
+test_adult_long_habit_is_kept (test_model.RecommendationTests.test_adult_long_habit_is_kept) ... ok
+test_age_specific_constraints (test_model.RecommendationTests.test_age_specific_constraints) ... ok
+test_duplicate_wake_date_no_false_warmup (test_model.RecommendationTests.test_duplicate_wake_date_no_false_warmup) ... ok
+test_earliest_after_habitual_time_passed (test_model.RecommendationTests.test_earliest_after_habitual_time_passed) ... ok
+test_exact_minimum_and_nonround_wake (test_model.RecommendationTests.test_exact_minimum_and_nonround_wake) ... ok
+test_first_four_days_no_recommendations (test_model.RecommendationTests.test_first_four_days_no_recommendations) ... ok
+test_habitual_anchor_uses_local_clock_across_dst (test_model.RecommendationTests.test_habitual_anchor_uses_local_clock_across_dst) ... ok
+test_infeasible_messages (test_model.RecommendationTests.test_infeasible_messages) ... ok
+test_invalid_plans (test_model.RecommendationTests.test_invalid_plans) ... ok
+test_large_shift_partial (test_model.RecommendationTests.test_large_shift_partial) ... ok
+test_long_plan_inside_range_is_kept_with_note (test_model.RecommendationTests.test_long_plan_inside_range_is_kept_with_note) ... ok
+test_long_sleeper_is_not_told_to_sleep_less_than_needed (test_model.RecommendationTests.test_long_sleeper_is_not_told_to_sleep_less_than_needed) ... ok
+test_missing_day_resets (test_model.RecommendationTests.test_missing_day_resets) ... ok
+test_no_feasible_plan (test_model.RecommendationTests.test_no_feasible_plan) ... ok
+test_off_grid_plan_and_limits (test_model.RecommendationTests.test_off_grid_plan_and_limits) ... ok
+test_older_duplicate_is_reported (test_model.RecommendationTests.test_older_duplicate_is_reported) ... ok
+test_onset_note_for_advances (test_model.RecommendationTests.test_onset_note_for_advances) ... ok
+test_past_baseline_falls_back_to_habitual (test_model.RecommendationTests.test_past_baseline_falls_back_to_habitual) ... ok
+test_past_earliest_is_clamped (test_model.RecommendationTests.test_past_earliest_is_clamped) ... ok
+test_plan_before_range_is_delayed (test_model.RecommendationTests.test_plan_before_range_is_delayed) ... ok
+test_plan_example_reverse_calculation (test_model.RecommendationTests.test_plan_example_reverse_calculation) ... ok
+test_random_inputs_never_break_hard_rules (test_model.RecommendationTests.test_random_inputs_never_break_hard_rules) ... ok
+test_regular_sleeper_keeps_plan (test_model.RecommendationTests.test_regular_sleeper_keeps_plan) ... ok
+test_sample_plan_moves_earlier (test_model.RecommendationTests.test_sample_plan_moves_earlier) ... ok
+test_section8_necessary_sleep_outputs (test_model.RecommendationTests.test_section8_necessary_sleep_outputs) ... ok
+test_sensitivity_is_reported (test_model.RecommendationTests.test_sensitivity_is_reported) ... ok
+test_stale_records_blocked (test_model.RecommendationTests.test_stale_records_blocked) ... ok
+test_target_time_changes_decision (test_model.RecommendationTests.test_target_time_changes_decision) ... ok
+test_tracking_only_groups (test_model.RecommendationTests.test_tracking_only_groups) ... ok
+test_unattainable_target_partial (test_model.RecommendationTests.test_unattainable_target_partial) ... ok
+test_window_meets_all_constraints_and_chart_is_consistent (test_model.RecommendationTests.test_window_meets_all_constraints_and_chart_is_consistent) ... ok
+test_future_data_no_leak (test_model.ResearchTests.test_future_data_no_leak) ... ok
+test_habitual_bed_before_wake (test_model.ResearchTests.test_habitual_bed_before_wake) ... ok
+test_model_a_is_hours_slept_in_previous_24h (test_model.ResearchTests.test_model_a_is_hours_slept_in_previous_24h) ... ok
+test_model_c_matches_direct_calculation (test_model.ResearchTests.test_model_c_matches_direct_calculation) ... ok
+test_ranks_ties_and_correlation (test_model.ResearchTests.test_ranks_ties_and_correlation) ... ok
+test_research_warmup_exclusions (test_model.ResearchTests.test_research_warmup_exclusions) ... ok
+test_same_day_aggregated (test_model.ResearchTests.test_same_day_aggregated) ... ok
+test_sleep_time_observation_excluded (test_model.ResearchTests.test_sleep_time_observation_excluded) ... ok
+test_summary_empty (test_model.ResearchTests.test_summary_empty) ... ok
+test_auto_range_from_wake_time (test_model.TargetBlockTests.test_auto_range_from_wake_time) ... ok
+test_auto_range_keeps_long_habit (test_model.TargetBlockTests.test_auto_range_keeps_long_habit) ... ok
+test_auto_range_late_night_and_passed_wake (test_model.TargetBlockTests.test_auto_range_late_night_and_passed_wake) ... ok
+test_auto_range_starts_now_without_warning (test_model.TargetBlockTests.test_auto_range_starts_now_without_warning) ... ok
+test_parse_targets_legacy_and_errors (test_model.TargetBlockTests.test_parse_targets_legacy_and_errors) ... ok
+test_parse_targets_sorts_and_merges (test_model.TargetBlockTests.test_parse_targets_sorts_and_merges) ... ok
+test_scan_blocks_weights_by_length (test_model.TargetBlockTests.test_scan_blocks_weights_by_length) ... ok
+test_selected_periods_change_the_plan (test_model.TargetBlockTests.test_selected_periods_change_the_plan) ... ok
+test_ambiguous_dst_rejected (test_model.TimeTests.test_ambiguous_dst_rejected) ... ok
+test_bad_dates_and_seconds (test_model.TimeTests.test_bad_dates_and_seconds) ... ok
+test_candidates_include_exact_limits (test_model.TimeTests.test_candidates_include_exact_limits) ... ok
+test_circular_midnight (test_model.TimeTests.test_circular_midnight) ... ok
+test_elapsed_sleep_across_dst (test_model.TimeTests.test_elapsed_sleep_across_dst) ... ok
+test_explicit_dst_offsets_distinct (test_model.TimeTests.test_explicit_dst_offsets_distinct) ... ok
+test_grid_with_seconds_never_before_start (test_model.TimeTests.test_grid_with_seconds_never_before_start) ... ok
+test_nonexistent_dst_rejected (test_model.TimeTests.test_nonexistent_dst_rejected) ... ok
+test_quarter_hour_grid_nonround (test_model.TimeTests.test_quarter_hour_grid_nonround) ... ok
+test_trough_halfway_between_mid_sleep_and_wake (test_model.TimeTests.test_trough_halfway_between_mid_sleep_and_wake) ... ok
+test_adjacent_allowed (test_model.ValidationTests.test_adjacent_allowed) ... ok
+test_age_groups_follow_cdc_table (test_model.ValidationTests.test_age_groups_follow_cdc_table) ... ok
+test_bad_duration (test_model.ValidationTests.test_bad_duration) ... ok
+test_duplicate_ids_rejected (test_model.ValidationTests.test_duplicate_ids_rejected) ... ok
+test_future_records_rejected (test_model.ValidationTests.test_future_records_rejected) ... ok
+test_legacy_desired_hours_ignored (test_model.ValidationTests.test_legacy_desired_hours_ignored) ... ok
+test_light_is_record_only (test_model.ValidationTests.test_light_is_record_only) ... ok
+test_nonfinite_bool_fractional_scores (test_model.ValidationTests.test_nonfinite_bool_fractional_scores) ... ok
+test_overlapping_sleep_rejected (test_model.ValidationTests.test_overlapping_sleep_rejected) ... ok
+test_unknown_or_directory_zone_is_input_error (test_model.ValidationTests.test_unknown_or_directory_zone_is_input_error) ... ok
+test_busy_port_explains_what_to_do (test_run.LauncherTests.test_busy_port_explains_what_to_do) ... ok
+test_lan_addresses_are_plain_ipv4 (test_run.LauncherTests.test_lan_addresses_are_plain_ipv4) ... ok
+test_phone_mode_serves_and_shows_the_phone_address (test_run.LauncherTests.test_phone_mode_serves_and_shows_the_phone_address) ... ok
+test_windows_never_shares_the_port (test_run.LauncherTests.test_windows_never_shares_the_port) ... ok
+test_analysis_is_registered (test_server.APITests.test_analysis_is_registered) ... ok
+test_bad_shapes_are_400_not_500 (test_server.APITests.test_bad_shapes_are_400_not_500) ... ok
+test_body_at_limit_is_read (test_server.APITests.test_body_at_limit_is_read) ... ok
+test_cross_origin_blocked (test_server.APITests.test_cross_origin_blocked) ... ok
+test_deep_nesting_rejected_not_crash (test_server.APITests.test_deep_nesting_rejected_not_crash) ... ok
+test_internal_error_is_generic_and_does_not_echo_input (test_server.APITests.test_internal_error_is_generic_and_does_not_echo_input) ... ok
+test_invalid_json (test_server.APITests.test_invalid_json) ... ok
+test_json_content_type_required (test_server.APITests.test_json_content_type_required) ... ok
+test_length_rules (test_server.APITests.test_length_rules) ... ok
+test_nan_and_infinity_rejected (test_server.APITests.test_nan_and_infinity_rejected) ... ok
+test_non_utf8_rejected (test_server.APITests.test_non_utf8_rejected) ... ok
+test_recommend_research_and_analysis_through_api (test_server.APITests.test_recommend_research_and_analysis_through_api) ... ok
+test_request_does_not_write_files (test_server.APITests.test_request_does_not_write_files) ... ok
+test_same_origin_allowed (test_server.APITests.test_same_origin_allowed) ... ok
+test_unknown_api (test_server.APITests.test_unknown_api) ... ok
+test_validate_normalizes_records (test_server.APITests.test_validate_normalizes_records) ... ok
+test_validation_error_is_user_message (test_server.APITests.test_validation_error_is_user_message) ... ok
+test_external_links_are_safe (test_server.MarkupTests.test_external_links_are_safe) ... ok
+test_ids_unique_and_every_js_reference_exists (test_server.MarkupTests.test_ids_unique_and_every_js_reference_exists) ... ok
+test_labels_point_to_controls (test_server.MarkupTests.test_labels_point_to_controls) ... ok
+test_manifest_assets (test_server.MarkupTests.test_manifest_assets) ... ok
+test_no_inline_handlers_or_styles (test_server.MarkupTests.test_no_inline_handlers_or_styles) ... ok
+test_no_sources_in_the_app (test_server.MarkupTests.test_no_sources_in_the_app) ... ok
+test_phone_home_order_and_intro_buttons (test_server.MarkupTests.test_phone_home_order_and_intro_buttons) ... ok
+test_service_worker_gets_shell_hash (test_server.MarkupTests.test_service_worker_gets_shell_hash) ... ok
+test_service_worker_scope (test_server.MarkupTests.test_service_worker_scope) ... ok
+test_timetable_tools_and_unsaved_notes (test_server.MarkupTests.test_timetable_tools_and_unsaved_notes) ... ok
+test_versions_agree (test_server.MarkupTests.test_versions_agree) ... ok
+test_all_assets_with_types (test_server.StaticAndHeaderTests.test_all_assets_with_types) ... ok
+test_allowed_hosts (test_server.StaticAndHeaderTests.test_allowed_hosts) ... ok
+test_head_has_headers_without_body (test_server.StaticAndHeaderTests.test_head_has_headers_without_body) ... ok
+test_health (test_server.StaticAndHeaderTests.test_health) ... ok
+test_hostname_helper (test_server.StaticAndHeaderTests.test_hostname_helper) ... ok
+test_hsts_only_over_https (test_server.StaticAndHeaderTests.test_hsts_only_over_https) ... ok
+test_method_not_allowed_has_allow_header (test_server.StaticAndHeaderTests.test_method_not_allowed_has_allow_header) ... ok
+test_no_source_or_traversal (test_server.StaticAndHeaderTests.test_no_source_or_traversal) ... ok
+test_security_headers (test_server.StaticAndHeaderTests.test_security_headers) ... ok
+
+----------------------------------------------------------------------
+Ran 150 tests in 3.406s
+
+OK
+
+== 3. 브라우저 보조 함수 테스트: node --test tests/test_utils.mjs (Node.js v22.22.0) ==
+ok 1 - age table matches the server table and the recommended minimums
+ok 2 - timetable and sleepiness scale
+ok 3 - periods can be added up to 9교시 and removed down to 7교시
+ok 4 - a saved copy of the old default timetable becomes the new default
+ok 5 - time zone names are canonical IANA names the server can load
+ok 6 - untrusted labels are escaped
+ok 7 - date arithmetic and labels
+ok 8 - time zone conversion does not depend on the system zone
+ok 9 - duration labels round once and handle missing values
+ok 10 - offsets, local times and ISO strings across daylight saving
+ok 11 - strict time parser matches the server rules
+ok 12 - next wake-up: tonight, after midnight and early morning
+ok 13 - selected periods become target blocks on the wake-up day
+ok 14 - clock times typed in the record sheet resolve to the intended instants
+ok 15 - history status mirrors the server continuity rules
+ok 16 - record checks: overlap, future, duration and adjacency
+ok 17 - backup import validates shape, then every server rule
+ok 18 - large backups are checked quickly (one sorted pass)
+ok 19 - CSV protects against formula injection and keeps quotes
+ok 20 - demo data: 14 nights and 2 naps, synthetic and never in the future
+ok 21 - demo does not alter the personal default
+ok 22 - candidate range collapses a single point
+ok 23 - chart axis: exact tick values that cover every plotted value
+# tests 23
+# pass 23
+# fail 0
+
+== 4. 브라우저 종단 간 테스트 (Playwright Chromium, 휴대폰 화면, 고정 시각 서버 2026-10-10 20:00 KST) ==
+PASS [v2.2] a saved v2.1 default timetable becomes the new default
+PASS [v2.2] a timetable the user changed is kept
+PASS [v2.2] a saved 9교시 timetable loads
+PASS [v2.2] home with 9교시 fits (390x664) — {'sh': 664, 'ih': 664, 'sw': 390, 'iw': 390}
+PASS [v2.2] chip labels are not cut off in five columns — [True, True, True, True, True, True, True, True, True, True]
+PASS [v2.2] a button shrinks while touched and lets go
+PASS [v2.2] tab press glows and stays selected
+PASS [v2.2] section toggle glows
+PASS [v2.2] save button glows
+PASS [v2.2] export without comparison rows is explained
+PASS [v2.2] pressing it says why
+PASS [v2.2] sleepiness line before any tap
+PASS [v2.2] long message: two lines on the card, full text in the message — [True, 41] 추천은 오전(04:00~13:00)에 일어나는 밤잠만 계획해요. 다른 시간에 일어난다면 기록 기능을 써 주세요.
+PASS [v2.2] long message still fits — {'sh': 664, 'ih': 664, 'sw': 390, 'iw': 390}
+PASS [v2.2] no console errors — []
+PASS [v2.2] reduced motion: still ring instead of animation — ['chip flash', 'none', 'rgba(106, 84, 176, 0.45) 0px 0px 0px 4px']
+PASS [review] night question opens
+PASS [review] locking the phone closes the unanswered question
+PASS [review] morning question uses the new time — 07:10
+PASS [review] future wake-up refused — 일어난 시각은 잠자러 간 시각(23:00)보다 늦어야 하고, 지금보다 늦을 수 없어요.
+PASS [review] morning record saved — {'id': '2c49952a-56ed-4e63-b85e-dd09a6fe7afe', 'start': '2026-10-10T23:15+09:00', 'end': '2026-10-11T07:00+09:00', 'kind': 'main', 'sleepiness_wake': None, 'light_minutes': None}
+PASS [review] long session asks for the date
+PASS [review] long session defaults to the planned wake-up — 2026-10-12 07:00
+PASS [review] long session can be discarded
+PASS [review] missing night is named — 10/7(수) 기록을 추가하면 이어져요.
+PASS [review] early periods are summarised in the card meta
+PASS [review] home fits with status note and early periods (360x640) — {'sh': 640, 'ih': 640, 'sw': 360, 'iw': 360}
+PASS [review] zone name canonicalised
+PASS [review] offset-style zone refused
+PASS [review] no console errors — []
+PASS [review] KakaoTalk in-app browser hint
+PASS [review] hint stays closed for the session
+PASS [flow] intro shows the hero line and glossary
+PASS [flow] intro has both buttons
+PASS [flow] 닫기 closes the intro
+PASS [flow] after 닫기 the intro returns on the next load
+PASS [flow] "재접속까지 보지 않기" confirms with a message — 앱을 다시 열 때까지 이 안내는 나오지 않아요. 오른쪽 위 ? 버튼으로 언제든 볼 수 있어요.
+PASS [flow] "재접속까지 보지 않기" hides it on reload
+PASS [flow] ? reopens the intro
+PASS [flow] Escape closes the intro
+PASS [flow] new session shows the intro again
+PASS [flow] home fits the phone screen (empty) — {'sh': 664, 'ih': 664, 'sw': 390, 'iw': 390}
+PASS [flow] home order: calculate, status, focus, sleep, wake — [110, 169, 282, 422, 481]
+PASS [flow] home text is at least 13px — [13, 'DT. 연속 기록']
+PASS [flow] empty state offers the demo
+PASS [flow] 1교시 selected by default
+PASS [flow] default timetable starts at 08:40
+PASS [flow] chip toggles
+PASS [flow] the redrawn chip glows after the press
+PASS [flow] the glow fades, the selection stays
+PASS [flow] chip choice persists
+PASS [flow] wake label for tonight — 10/11(일) 내일 아침
+PASS [flow] periods before the wake time are off
+PASS [flow] changing the wake time lights up its row
+PASS [flow] pressing an early period explains why
+PASS [flow] restoring the wake time re-enables them
+PASS [flow] calculation without records asks for 5 days
+PASS [flow] sleep screen opens
+PASS [flow] sleep screen compares with the minimum — 07:00에 일어나면 약 8시간 · 최소 8시간 충족
+PASS [flow] sleep start shown
+PASS [flow] session saved — {'start': 1791640802319}
+PASS [flow] reload keeps the sleep screen and skips the intro
+PASS [flow] no wake question within an hour
+PASS [flow] unlocking at 03:00 asks if awake
+PASS [flow] "still asleep" keeps the session
+PASS [flow] snoozed for 30 minutes
+PASS [flow] touching the sleep screen in the morning asks too
+PASS [flow] wake sheet prefilled — 23:15 07:15
+PASS [flow] latency chip moves the sleep onset
+PASS [flow] kind defaults to main sleep
+PASS [flow] wake sheet fits the screen — {'x': 0, 'y': 156.75, 'width': 390, 'height': 507.25}
+PASS [flow] record saved with offsets — {'id': '31ed4289-1f75-46cb-8f45-6eff57d28c2d', 'start': '2026-10-10T23:30+09:00', 'end': '2026-10-11T07:15+09:00', 'kind': 'main', 'sleepiness_wake': 3, 'light_minutes': None}
+PASS [flow] session cleared
+PASS [flow] latency choice remembered
+PASS [flow] record listed
+PASS [flow] a future wake-up time is refused
+PASS [flow] edit updates the record
+PASS [flow] add defaults to the missing night — 2026-10-10
+PASS [flow] overlap rejected
+PASS [flow] delete removes one record
+PASS [flow] mistaken press can be cancelled
+PASS [flow] no console errors — []
+PASS [360x640] demo pill shown
+PASS [360x640] demo calculation result — 22:30–23:00 / 늦어도 23:00 · 평소보다 20분 일찍
+PASS [360x640] home with a result fits — {'sh': 640, 'ih': 640, 'sw': 360, 'iw': 360}
+PASS [360x640] basis tab shows the calculation
+PASS [360x640] chart drawn with one target block
+PASS [360x640] candidate list
+PASS [360x640] glossary kept, sources removed
+PASS [360x640] basis tab has no sideways scroll — {'sh': 1852, 'ih': 640, 'sw': 360, 'iw': 360}
+PASS [360x640] changing periods marks the result stale
+PASS [360x640] a stale result still fits — {'sh': 640, 'ih': 640, 'sw': 360, 'iw': 360}
+PASS [360x640] two periods, two shaded blocks
+PASS [360x640] no period selected is explained
+PASS [360x640] error state still fits — {'sh': 640, 'ih': 640, 'sw': 360, 'iw': 360}
+PASS [360x640] analysis tiles
+PASS [360x640] analysis comments
+PASS [360x640] timeline has 14 nights and naps
+PASS [360x640] analysis has no sideways scroll — {'sh': 2217, 'ih': 640, 'sw': 360, 'iw': 360}
+PASS [360x640] analysis tab has no sources — 수면 분석
+PASS [360x640] the latest sleepiness tap stays on screen — 마지막 기록: 10/10 20:00 · 졸림 5(보통) · 모두 15번
+PASS [360x640] refresh confirms and the button returns
+PASS [360x640] model comparison shows A, B, C
+PASS [360x640] a sleepiness tap does not invalidate the bedtime result
+PASS [360x640] sleep is blocked in demo mode
+PASS [360x640] exit demo
+PASS [360x640] import stored
+PASS [360x640] status after import
+PASS [360x640] personal calculation — 22:30–23:00
+PASS [360x640] result kept for the night
+PASS [360x640] result survives a reload
+PASS [360x640] backup export
+PASS [360x640] backup export is confirmed — 백업 파일을 저장했어요(rhythm-backup-2026-10-10.json). 다운로드 폴더에서 확인할 수 있어요.
+PASS [360x640] CSV export
+PASS [360x640] bad backup rejected, data kept — 10/01 07:00 기록: 한 번의 수면은 20시간 이하로 기록해 주세요. 날짜와 시각을 확인해 주세요.
+PASS [360x640] no unsaved note at first
+PASS [360x640] unsaved profile change is shown
+PASS [360x640] profile saved
+PASS [360x640] timetable starts with 1~7교시 and 방과후
+PASS [360x640] edited times are marked as unsaved
+PASS [360x640] an unsaved draft survives a tab change
+PASS [360x640] timetable saved
+PASS [360x640] saving the timetable keeps an unsaved profile edit
+PASS [360x640] choosing the saved value again clears the note
+PASS [360x640] invalid timetable rejected — 2교시는 끝나는 시각이 시작보다 늦어야 해요.
+PASS [360x640] reset is a draft until saved
+PASS [360x640] timetable reset
+PASS [360x640] adding 8교시 puts it before 방과후 — ['7교시 15:30-16:20', '8교시 16:30-17:20', '방과후 17:30-19:00']
+PASS [360x640] the new period waits for 시간표 저장
+PASS [360x640] up to 9교시
+PASS [360x640] removing the unsaved 9교시 matches the saved timetable
+PASS [360x640] 8교시 chip on the home screen in five columns
+PASS [360x640] home with 8교시 fits — {'sh': 640, 'ih': 640, 'sw': 360, 'iw': 360}
+PASS [360x640] 8교시 is part of the calculation — ['1교시', '8교시']
+PASS [360x640] removing 8교시 drops it from the chosen periods — ['p1']
+PASS [360x640] settings has no sideways scroll — {'sh': 1880, 'ih': 640, 'sw': 360, 'iw': 360}
+PASS [360x640] no console errors before the offline test — []
+PASS [360x640] offline calculation explained and still fits — {'sh': 640, 'ih': 640, 'sw': 360, 'iw': 360}
+PASS [360x640] clear data
+PASS [360x640] home: no sideways scroll, text >= 12px — {'sh': 640, 'ih': 640, 'sw': 360, 'iw': 360} [13, 'DT. 연속 기록']
+PASS [360x640] records: no sideways scroll, text >= 12px — {'sh': 640, 'ih': 640, 'sw': 360, 'iw': 360} [14.5, 'P.tab-note 버튼을 깜빡했다면 직접 추가하세요. ']
+PASS [360x640] analysis: no sideways scroll, text >= 12px — {'sh': 933, 'ih': 640, 'sw': 360, 'iw': 360} [13, 'SMALL. 매우 또렷']
+PASS [360x640] basis: no sideways scroll, text >= 12px — {'sh': 640, 'ih': 640, 'sw': 360, 'iw': 360} [14.5, 'P.card-note 홈에서 ‘최근 기록으로 취침 시각 계']
+PASS [360x640] settings: no sideways scroll, text >= 12px — {'sh': 1880, 'ih': 640, 'sw': 360, 'iw': 360} [13.5, 'P.footnote 리듬 v2.2 · 교육·자기관리용 ·']
+PASS [360x640] no console errors — []
+PASS [390x664] demo pill shown
+PASS [390x664] demo calculation result — 22:30–23:00 / 늦어도 23:00 · 평소보다 20분 일찍
+PASS [390x664] home with a result fits — {'sh': 664, 'ih': 664, 'sw': 390, 'iw': 390}
+PASS [390x664] basis tab shows the calculation
+PASS [390x664] chart drawn with one target block
+PASS [390x664] candidate list
+PASS [390x664] glossary kept, sources removed
+PASS [390x664] basis tab has no sideways scroll — {'sh': 1763, 'ih': 664, 'sw': 390, 'iw': 390}
+PASS [390x664] changing periods marks the result stale
+PASS [390x664] a stale result still fits — {'sh': 664, 'ih': 664, 'sw': 390, 'iw': 390}
+PASS [390x664] two periods, two shaded blocks
+PASS [390x664] no period selected is explained
+PASS [390x664] error state still fits — {'sh': 664, 'ih': 664, 'sw': 390, 'iw': 390}
+PASS [390x664] analysis tiles
+PASS [390x664] analysis comments
+PASS [390x664] timeline has 14 nights and naps
+PASS [390x664] analysis has no sideways scroll — {'sh': 2153, 'ih': 664, 'sw': 390, 'iw': 390}
+PASS [390x664] analysis tab has no sources — 수면 분석
+PASS [390x664] the latest sleepiness tap stays on screen — 마지막 기록: 10/10 20:00 · 졸림 5(보통) · 모두 15번
+PASS [390x664] refresh confirms and the button returns
+PASS [390x664] model comparison shows A, B, C
+PASS [390x664] a sleepiness tap does not invalidate the bedtime result
+PASS [390x664] sleep is blocked in demo mode
+PASS [390x664] exit demo
+PASS [390x664] import stored
+PASS [390x664] status after import
+PASS [390x664] personal calculation — 22:30–23:00
+PASS [390x664] result kept for the night
+PASS [390x664] result survives a reload
+PASS [390x664] backup export
+PASS [390x664] backup export is confirmed — 백업 파일을 저장했어요(rhythm-backup-2026-10-10.json). 다운로드 폴더에서 확인할 수 있어요.
+PASS [390x664] CSV export
+PASS [390x664] bad backup rejected, data kept — 10/01 07:00 기록: 한 번의 수면은 20시간 이하로 기록해 주세요. 날짜와 시각을 확인해 주세요.
+PASS [390x664] no unsaved note at first
+PASS [390x664] unsaved profile change is shown
+PASS [390x664] profile saved
+PASS [390x664] timetable starts with 1~7교시 and 방과후
+PASS [390x664] edited times are marked as unsaved
+PASS [390x664] an unsaved draft survives a tab change
+PASS [390x664] timetable saved
+PASS [390x664] saving the timetable keeps an unsaved profile edit
+PASS [390x664] choosing the saved value again clears the note
+PASS [390x664] invalid timetable rejected — 2교시는 끝나는 시각이 시작보다 늦어야 해요.
+PASS [390x664] reset is a draft until saved
+PASS [390x664] timetable reset
+PASS [390x664] adding 8교시 puts it before 방과후 — ['7교시 15:30-16:20', '8교시 16:30-17:20', '방과후 17:30-19:00']
+PASS [390x664] the new period waits for 시간표 저장
+PASS [390x664] up to 9교시
+PASS [390x664] removing the unsaved 9교시 matches the saved timetable
+PASS [390x664] 8교시 chip on the home screen in five columns
+PASS [390x664] home with 8교시 fits — {'sh': 664, 'ih': 664, 'sw': 390, 'iw': 390}
+PASS [390x664] 8교시 is part of the calculation — ['1교시', '8교시']
+PASS [390x664] removing 8교시 drops it from the chosen periods — ['p1']
+PASS [390x664] settings has no sideways scroll — {'sh': 1859, 'ih': 664, 'sw': 390, 'iw': 390}
+PASS [390x664] no console errors before the offline test — []
+PASS [390x664] offline calculation explained and still fits — {'sh': 664, 'ih': 664, 'sw': 390, 'iw': 390}
+PASS [390x664] clear data
+PASS [390x664] home: no sideways scroll, text >= 12px — {'sh': 664, 'ih': 664, 'sw': 390, 'iw': 390} [13, 'DT. 연속 기록']
+PASS [390x664] records: no sideways scroll, text >= 12px — {'sh': 664, 'ih': 664, 'sw': 390, 'iw': 390} [14.5, 'P.tab-note 버튼을 깜빡했다면 직접 추가하세요. ']
+PASS [390x664] analysis: no sideways scroll, text >= 12px — {'sh': 933, 'ih': 664, 'sw': 390, 'iw': 390} [13, 'SMALL. 매우 또렷']
+PASS [390x664] basis: no sideways scroll, text >= 12px — {'sh': 664, 'ih': 664, 'sw': 390, 'iw': 390} [14.5, 'P.card-note 홈에서 ‘최근 기록으로 취침 시각 계']
+PASS [390x664] settings: no sideways scroll, text >= 12px — {'sh': 1859, 'ih': 664, 'sw': 390, 'iw': 390} [13.5, 'P.footnote 리듬 v2.2 · 교육·자기관리용 ·']
+PASS [390x664] no console errors — []
+PASS [dark 412x780] home fits — {'sh': 780, 'ih': 780, 'sw': 412, 'iw': 412}
+PASS [dark 412x780] dark palette applied — rgb(18, 16, 32)
+PASS [dark 412x780] no console errors — []
+PASS [sw] shell cache named by content hash — ['rhythm-shell-bc593bf4ab37']
+PASS [sw] app opens offline from the cache
+PASS [sw] sleep recording works offline
+PASS [rescue] original can be downloaded
+PASS [clock 00:30] wake day label — 10/11(일) 오늘 아침
+PASS [clock 05:30] wake day label — 10/12(월) 내일 아침
+217/217 passed
+
+== 5. 홈 화면 한 화면 맞춤 (스크롤 없음) ==
+-- 4개 크기 × 11개 상태 (fits = 세로·가로 스크롤 없음, 기상 칸이 하단 탭 위, 교시 글자 잘림 없음)
+(360, 640) empty       fits=True sh=640 ih=640 wake_bottom=533 tabbar_top=580 chips_cut=0 calc=[46, 163] []
+(360, 640) warmup      fits=True sh=640 ih=640 wake_bottom=551 tabbar_top=580 chips_cut=0 calc=[46, 163] []
+(360, 640) ready       fits=True sh=640 ih=640 wake_bottom=553 tabbar_top=580 chips_cut=0 calc=[46, 190] []
+(360, 640) message     fits=True sh=640 ih=640 wake_bottom=553 tabbar_top=580 chips_cut=0 calc=[46, 190] []
+(360, 640) demo        fits=True sh=640 ih=640 wake_bottom=553 tabbar_top=580 chips_cut=0 calc=[46, 190] []
+(360, 640) empty-error fits=True sh=640 ih=640 wake_bottom=554 tabbar_top=580 chips_cut=0 calc=[46, 184] []
+(360, 640) stale       fits=True sh=640 ih=640 wake_bottom=570 tabbar_top=580 chips_cut=0 calc=[46, 181] []
+(360, 640) warmup-calc fits=True sh=640 ih=640 wake_bottom=570 tabbar_top=580 chips_cut=0 calc=[46, 181] []
+(360, 640) p8-ready    fits=True sh=640 ih=640 wake_bottom=553 tabbar_top=580 chips_cut=0 calc=[46, 190] []
+(360, 640) p9-demo     fits=True sh=640 ih=640 wake_bottom=553 tabbar_top=580 chips_cut=0 calc=[46, 190] []
+(360, 640) p9-message  fits=True sh=640 ih=640 wake_bottom=553 tabbar_top=580 chips_cut=0 calc=[46, 190] []
+(375, 667) empty       fits=True sh=667 ih=667 wake_bottom=533 tabbar_top=607 chips_cut=0 calc=[46, 163] []
+(375, 667) warmup      fits=True sh=667 ih=667 wake_bottom=551 tabbar_top=607 chips_cut=0 calc=[46, 163] []
+(375, 667) ready       fits=True sh=667 ih=667 wake_bottom=553 tabbar_top=607 chips_cut=0 calc=[46, 190] []
+(375, 667) message     fits=True sh=667 ih=667 wake_bottom=553 tabbar_top=607 chips_cut=0 calc=[46, 190] []
+(375, 667) demo        fits=True sh=667 ih=667 wake_bottom=553 tabbar_top=607 chips_cut=0 calc=[46, 190] []
+(375, 667) empty-error fits=True sh=667 ih=667 wake_bottom=554 tabbar_top=607 chips_cut=0 calc=[46, 184] []
+(375, 667) stale       fits=True sh=667 ih=667 wake_bottom=570 tabbar_top=607 chips_cut=0 calc=[46, 181] []
+(375, 667) warmup-calc fits=True sh=667 ih=667 wake_bottom=570 tabbar_top=607 chips_cut=0 calc=[46, 181] []
+(375, 667) p8-ready    fits=True sh=667 ih=667 wake_bottom=553 tabbar_top=607 chips_cut=0 calc=[46, 190] []
+(375, 667) p9-demo     fits=True sh=667 ih=667 wake_bottom=553 tabbar_top=607 chips_cut=0 calc=[46, 190] []
+(375, 667) p9-message  fits=True sh=667 ih=667 wake_bottom=553 tabbar_top=607 chips_cut=0 calc=[46, 190] []
+(390, 664) empty       fits=True sh=664 ih=664 wake_bottom=533 tabbar_top=604 chips_cut=0 calc=[46, 163] []
+(390, 664) warmup      fits=True sh=664 ih=664 wake_bottom=551 tabbar_top=604 chips_cut=0 calc=[46, 163] []
+(390, 664) ready       fits=True sh=664 ih=664 wake_bottom=553 tabbar_top=604 chips_cut=0 calc=[46, 190] []
+(390, 664) message     fits=True sh=664 ih=664 wake_bottom=553 tabbar_top=604 chips_cut=0 calc=[46, 190] []
+(390, 664) demo        fits=True sh=664 ih=664 wake_bottom=553 tabbar_top=604 chips_cut=0 calc=[46, 190] []
+(390, 664) empty-error fits=True sh=664 ih=664 wake_bottom=554 tabbar_top=604 chips_cut=0 calc=[46, 184] []
+(390, 664) stale       fits=True sh=664 ih=664 wake_bottom=570 tabbar_top=604 chips_cut=0 calc=[46, 181] []
+(390, 664) warmup-calc fits=True sh=664 ih=664 wake_bottom=570 tabbar_top=604 chips_cut=0 calc=[46, 181] []
+(390, 664) p8-ready    fits=True sh=664 ih=664 wake_bottom=553 tabbar_top=604 chips_cut=0 calc=[46, 190] []
+(390, 664) p9-demo     fits=True sh=664 ih=664 wake_bottom=553 tabbar_top=604 chips_cut=0 calc=[46, 190] []
+(390, 664) p9-message  fits=True sh=664 ih=664 wake_bottom=553 tabbar_top=604 chips_cut=0 calc=[46, 190] []
+(412, 780) empty       fits=True sh=780 ih=780 wake_bottom=645 tabbar_top=720 chips_cut=0 calc=[48, 184] []
+(412, 780) warmup      fits=True sh=780 ih=780 wake_bottom=663 tabbar_top=720 chips_cut=0 calc=[48, 184] []
+(412, 780) ready       fits=True sh=780 ih=780 wake_bottom=668 tabbar_top=720 chips_cut=0 calc=[48, 213] []
+(412, 780) message     fits=True sh=780 ih=780 wake_bottom=668 tabbar_top=720 chips_cut=0 calc=[48, 213] []
+(412, 780) demo        fits=True sh=780 ih=780 wake_bottom=668 tabbar_top=720 chips_cut=0 calc=[48, 213] []
+(412, 780) empty-error fits=True sh=780 ih=780 wake_bottom=666 tabbar_top=720 chips_cut=0 calc=[48, 205] []
+(412, 780) stale       fits=True sh=780 ih=780 wake_bottom=682 tabbar_top=720 chips_cut=0 calc=[48, 202] []
+(412, 780) warmup-calc fits=True sh=780 ih=780 wake_bottom=682 tabbar_top=720 chips_cut=0 calc=[48, 202] []
+(412, 780) p8-ready    fits=True sh=780 ih=780 wake_bottom=668 tabbar_top=720 chips_cut=0 calc=[48, 213] []
+(412, 780) p9-demo     fits=True sh=780 ih=780 wake_bottom=668 tabbar_top=720 chips_cut=0 calc=[48, 213] []
+(412, 780) p9-message  fits=True sh=780 ih=780 wake_bottom=668 tabbar_top=720 chips_cut=0 calc=[48, 213] []
+-- 가장 긴 계산 안내 5가지 × 4개 크기 (고정 시각 서버)
+(360, 640) stale        fits calc=[46, 197] subH=21 | 23:00 | 바뀐 내용이 있어요 · 다시 계산해 주세요
+(360, 640) infeasible   fits calc=[46, 202] subH=41 | 지금은 기록만 해요 | 추천은 오전(04:00~13:00)에 일어나는 밤잠만 계획해요. 다른 시간에 일어난다면 기록 기능을 써 주세요.
+(360, 640) large-shift  fits calc=[46, 210] subH=41 | 22:30–23:00 | 늦어도 23:00 · 평소보다 2시간 30분 일찍 · 집중 시간 조건은 일부 미충족
+(360, 640) unattainable fits calc=[46, 210] subH=41 | 23:30–00:00 | 늦어도 00:00 · 평소보다 2시간 일찍 · 집중 시간 조건은 일부 미충족
+(360, 640) offline      fits calc=[46, 184] subH=20 | 서버에 연결하지 못했어요 | 인터넷을 확인하고 다시 눌러 주세요.
+(375, 667) stale        fits calc=[46, 197] subH=21 | 23:00 | 바뀐 내용이 있어요 · 다시 계산해 주세요
+(375, 667) infeasible   fits calc=[46, 202] subH=41 | 지금은 기록만 해요 | 추천은 오전(04:00~13:00)에 일어나는 밤잠만 계획해요. 다른 시간에 일어난다면 기록 기능을 써 주세요.
+(375, 667) large-shift  fits calc=[46, 210] subH=41 | 22:30–23:00 | 늦어도 23:00 · 평소보다 2시간 30분 일찍 · 집중 시간 조건은 일부 미충족
+(375, 667) unattainable fits calc=[46, 210] subH=41 | 23:30–00:00 | 늦어도 00:00 · 평소보다 2시간 일찍 · 집중 시간 조건은 일부 미충족
+(375, 667) offline      fits calc=[46, 184] subH=20 | 서버에 연결하지 못했어요 | 인터넷을 확인하고 다시 눌러 주세요.
+(390, 664) stale        fits calc=[46, 197] subH=21 | 23:00 | 바뀐 내용이 있어요 · 다시 계산해 주세요
+(390, 664) infeasible   fits calc=[46, 202] subH=41 | 지금은 기록만 해요 | 추천은 오전(04:00~13:00)에 일어나는 밤잠만 계획해요. 다른 시간에 일어난다면 기록 기능을 써 주세요.
+(390, 664) large-shift  fits calc=[46, 210] subH=41 | 22:30–23:00 | 늦어도 23:00 · 평소보다 2시간 30분 일찍 · 집중 시간 조건은 일부 미충족
+(390, 664) unattainable fits calc=[46, 210] subH=41 | 23:30–00:00 | 늦어도 00:00 · 평소보다 2시간 일찍 · 집중 시간 조건은 일부 미충족
+(390, 664) offline      fits calc=[46, 184] subH=20 | 서버에 연결하지 못했어요 | 인터넷을 확인하고 다시 눌러 주세요.
+(412, 780) stale        fits calc=[48, 220] subH=20 | 23:00 | 바뀐 내용이 있어요 · 다시 계산해 주세요
+(412, 780) infeasible   fits calc=[48, 223] subH=41 | 지금은 기록만 해요 | 추천은 오전(04:00~13:00)에 일어나는 밤잠만 계획해요. 다른 시간에 일어난다면 기록 기능을 써 주세요.
+(412, 780) large-shift  fits calc=[48, 233] subH=40 | 22:30–23:00 | 늦어도 23:00 · 평소보다 2시간 30분 일찍 · 집중 시간 조건은 일부 미충족
+(412, 780) unattainable fits calc=[48, 233] subH=40 | 23:30–00:00 | 늦어도 00:00 · 평소보다 2시간 일찍 · 집중 시간 조건은 일부 미충족
+(412, 780) offline      fits calc=[48, 205] subH=20 | 서버에 연결하지 못했어요 | 인터넷을 확인하고 다시 눌러 주세요.
+
+== 6. 브라우저 검사와 서버 검사의 일치 (무작위 자료) ==
+cases 4000 accepted 560
+cases 4000, accept/reject mismatches 0, history compared 560, history mismatches 0
+
+== 7. 색 대비 (WCAG 2.2 AA, 밝은·어두운 테마) ==
+light: checked 34 text + 30 graphic pairs
+dark: checked 34 text + 30 graphic pairs
+failures: 0
+
+== 8. 최대 크기 요청 처리 시간 (이 컨테이너) ==
+recommend: 0.04 s, status ready
+analysis: 0.03 s, status ready
+research: 0.10 s, status ready
+payload 239 KB, records 1500, observations 400
+
+== 9. 정적 검사 ==
+python -m compileall -q sleepapp tests run.py: 오류 없음
+node --check web/app.js web/utils.js web/sw.js: 오류 없음
+사용하지 않는 import·160자 초과 줄·줄 끝 공백 검사(AST 스크립트, Python 파일 10개): 없음
+pyright 1.1.414(기본 모드, Python 3.11 기준): run.py 0개. sleepapp 32개 —
+  시간대 인자 22개(iso()의 기본값 UTC 때문에 인자를 timezone으로 추론해 ZoneInfo를 거절),
+  None 가능성 10개(round() 겹침 표시 2개 포함, 앞선 조건·비어 있지 않은 목록으로 이미 보장되는 자리).
+  기존 테스트 파일 14개(test_model 12, test_analysis 1, test_server 1: 검사문 안의 None 가능성). 실행 오류로 이어지는 경로는 없음.
+flake8·mypy: 실행하지 못함(패키지 저장소에 접속할 수 없어 설치 불가). v2.0 때는 경고 0개.
+
+== 10. 실행기와 같은 Wi-Fi 휴대폰 시험 경로 ==
+$ python run.py --host 0.0.0.0 --port 8813 --no-browser   (휴대폰 시험 모드)
+그 주소(localhost가 아닌 이 컴퓨터의 네트워크 주소)로 휴대폰 크기 Chromium 접속: 비보안 연결 → 서비스 워커·crypto.randomUUID 없음
+리듬 실행 주소: http://127.0.0.1:8813
+같은 Wi-Fi의 휴대폰에서 열 주소: http://192.0.2.2:8813
+종료: Ctrl+C 또는 이 창 닫기. 기록은 사용 중인 브라우저에 보관됩니다.
+secure context, randomUUID: [False, 'undefined']
+calc: 22:30–23:00 | 늦어도 23:00 · 평소보다 20분 일찍
+wake set to 15:45 -> 10/12(월) 내일 아침
+calc (wake within 2 h -> next morning): 교시를 다시 골라 주세요 | 고른 교시가 모두 기상 시각보다 일러요.
+analysis comments: 8
+saved records: [['r1791695754191-s6d1jqa3kxj', 'nap']]
+intro after reload (closed only): True
+intro after reload (hidden for session): False
+service worker registrations: none
+errors: []
+LAN SMOKE PASS
+(Chrome이 http 주소에서 Cross-Origin-Opener-Policy 헤더를 무시한다는 콘솔 안내는 동작과 무관해 제외)
+
+$ python run.py --port 45283   (다른 프로그램이 이미 쓰는 포트)
+서버를 열 수 없습니다: [Errno 98] Address already in use
+- 리듬 실행 창(예전 버전 포함)이 이미 켜져 있으면 그 창을 닫고 다시 실행하세요.
+- 다른 프로그램이 45283번 포트를 쓰고 있으면 python run.py --port 8001 처럼 다른 포트를 쓰세요.
+종료 코드 1
+
+== 11. 예전 버전에서 넘어오기: 같은 주소, 같은 브라우저 ==
+-- v2.1.1(저장본 우선 서비스 워커, v2.1 기본 시간표가 든 설정, 기록 7개) → 서버만 v2.2로 바꿈
+PASS v2.1.1 state saved — ['rhythm-shell-64d01211030d']
+PASS first open after the update shows the saved v2.1 screen
+PASS the new version is saved in the background, the old copy removed — ['rhythm-shell-64d01211030d'] -> ['rhythm-shell-bc593bf4ab37']
+PASS the next open shows v2.2
+PASS old default timetable became the new one, choices kept
+PASS records kept
+PASS calculation works after the update — 23:00
+PASS no console errors — []
+8/8 passed
+-- v2.0(네트워크 우선 서비스 워커, v2.0 형식 기록 7개) → 서버만 v2.2로 바꿈
+v2.0 caches: ['rhythm-shell-v2']
+first load after upgrade: ['v2.2', True]
+status: 계산 가능 | 7일 | 7시간 47분
+caches after upgrade: ['rhythm-shell-bc593bf4ab37']
+second load: ['v2.2', 7]
+hash kept from v2.0: #settings
+calc with v2.0 records: 22:30–23:00 | 늦어도 23:00 · 평소보다 15분 일찍
+errors: []
+UPGRADE CHECK PASS

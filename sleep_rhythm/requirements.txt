@@ -1,0 +1,4 @@
+# Runtime dependencies for public hosting. Local use (python run.py) needs none of these
+# except tzdata on Windows when a time zone other than Asia/Seoul or UTC is chosen.
+waitress>=3.0.2,<4
+tzdata>=2025.2

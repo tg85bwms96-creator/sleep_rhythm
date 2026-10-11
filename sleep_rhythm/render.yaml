@@ -1,0 +1,11 @@
+# Render Blueprint: Dashboard > New > Blueprint > select this repository.
+services:
+  - type: web
+    name: rhythm-sleep
+    runtime: python
+    plan: free
+    region: singapore
+    buildCommand: pip install -r requirements.txt
+    startCommand: python run.py --production --host 0.0.0.0 --no-browser
+    healthCheckPath: /healthz
+    autoDeployTrigger: commit

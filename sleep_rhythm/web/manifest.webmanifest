@@ -1,0 +1,26 @@
+{
+  "id": "/",
+  "name": "리듬 · 수면 플래너",
+  "short_name": "리듬",
+  "description": "자기 전 버튼 하나로 수면을 기록하고, 내일 집중할 교시에 맞춰 오늘 밤 취침 시각을 계산하는 교육용 수면 앱",
+  "lang": "ko",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f5f4f9",
+  "theme_color": "#242047",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
